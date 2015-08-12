@@ -21,16 +21,6 @@ class Utils:
         return data_frame
 
     @staticmethod
-    def import_frame_from_rdd(rdd):
-        list = rdd.collect()
-        file = tempfile.NamedTemporaryFile()
-        for item in list:
-            file.write("%s\n" % item)
-        h2o_frame = h2o.import_frame(path=h2o.locate(os.path.dirname(file.name)))
-        file.close()
-        return h2o_frame
-
-    @staticmethod
     def dataframe_2_h2oframe(dataframe):
         if not isinstance(dataframe, dataframes.DataFrame):
             raise TypeError
@@ -42,3 +32,19 @@ class Utils:
         res = h2o.H2OConnection.post("dataframes/" + urllib.quote(dataframe_id) + "/h2oframe").json()
         h2oframe = H2OFrame.get_frame(res["h2oframe_id"])
         return h2oframe
+
+    @staticmethod
+    def save_rdd_as_file(rdd):
+        list = rdd.collect()
+        dataset = tempfile.NamedTemporaryFile(delete=False)
+        for item in list:
+            dataset.write("%s\n" % item)
+        dataset.close()
+        return dataset.name
+
+    @staticmethod
+    def upload_frame_from_rdd(rdd):
+        filename = Utils.save_rdd_as_file(rdd)
+        h2o_frame = h2o.upload_file(path=filename)
+        os.remove(filename)
+        return h2o_frame

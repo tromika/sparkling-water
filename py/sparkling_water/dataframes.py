@@ -27,6 +27,9 @@ class DataFrame:
     def get_schema(_self):
         return _self._schema
 
+    def get_num_fields(_self):
+        return _self._ncols
+
     # Converts the DataFrame to H2OFrame and then downloads the dataset as CSV file
     def download(_self, filename):
         h2o_frame = utils.Utils.dataframe_2_h2oframe(_self)
