@@ -72,8 +72,8 @@ cd %TOPDIR%
  --master %EXAMPLE_MASTER% ^
  --driver-memory %EXAMPLE_DRIVER_MEMORY% ^
  --driver-java-options "%EXAMPLE_H2O_SYS_OPS%" ^
- --driver-class-path $TOPDIR/assembly/build/libs/%FAT_JAR% ^
- %VERBOSE% $TOPDIR/assembly/build/libs/%FAT_JAR%
+ --driver-class-path %TOPDIR%/assembly/build/libs/%FAT_JAR% ^
+ %VERBOSE% %TOPDIR%/assembly/build/libs/%FAT_JAR%
 exit /b %ERRORLEVEL%
 
 :withdeploymode
@@ -85,8 +85,8 @@ cd %TOPDIR%
  --driver-memory %EXAMPLE_DRIVER_MEMORY% ^
  --driver-java-options "%EXAMPLE_H2O_SYS_OPS%" ^
  --deploy-mode %EXAMPLE_DEPLOY_MODE% ^
- --driver-class-path $TOPDIR/assembly/build/libs/%FAT_JAR% ^
- %VERBOSE% $TOPDIR/assembly/build/libs/%FAT_JAR%
+ --driver-class-path %TOPDIR%/assembly/build/libs/%FAT_JAR% ^
+ %VERBOSE% %TOPDIR%/assembly/build/libs/%FAT_JAR%
 exit /b %ERRORLEVEL%
 
 rem end of main script
