@@ -45,7 +45,7 @@ RUN curl -s http://h2o-release.s3.amazonaws.com/sparkling-water/master/103/spark
   WORKDIR /tmp
   RUN \
     curl -s -O https://downloads.mesosphere.io/master/ubuntu/12.04/mesos_${VERSION}-${PKG_RELEASE}.ubuntu1404_amd64.deb && \
-    dpkg --unpack mesos_${VERSION}-${PKG_RELEASE}.ubuntu1404_amd64.deb && \
+    dpkg --unpack mesos_${VERSION}-${PKG_RELEASE}.ubuntu1204_amd64.deb && \
     apt-get install -f -y && \
     rm mesos_${VERSION}-${PKG_RELEASE}.ubuntu1204_amd64.deb && \
     apt-get clean
