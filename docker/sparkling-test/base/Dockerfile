@@ -1,5 +1,8 @@
 FROM ubuntu:precise
 
+ENV VERSION 0.23.0
+ENV PKG_RELEASE 1.0
+
 # Repo
 #RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
 # Java 7 installation from Oracle
@@ -38,6 +41,16 @@ RUN curl -s http://h2o-release.s3.amazonaws.com/sparkling-water/master/103/spark
   unzip sw.zip -d /opt/ && \
   ln -s /opt/sparkling-water-0.2.103 /opt/sparkling-water && \
   rm -f sw.zip
+
+  WORKDIR /tmp
+  RUN \
+    curl -s -O https://downloads.mesosphere.io/master/ubuntu/14.04/mesos_${VERSION}-${PKG_RELEASE}.ubuntu1404_amd64.deb && \
+    dpkg --unpack mesos_${VERSION}-${PKG_RELEASE}.ubuntu1404_amd64.deb && \
+    apt-get install -f -y && \
+    rm mesos_${VERSION}-${PKG_RELEASE}.ubuntu1404_amd64.deb && \
+    apt-get clean
+
+
 
 # Setup environment
 ENV SPARK_HOME /opt/spark
